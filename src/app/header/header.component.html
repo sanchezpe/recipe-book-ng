@@ -29,7 +29,7 @@
         </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item" *ngIf="isAuthenticated">
-            <button class="nav-link btn btn-link">
+            <button class="nav-link btn btn-link" (click)="onLogout()">
               Logout
             </button>
           </li>
