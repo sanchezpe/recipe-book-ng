@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { DropdownDirective } from '../../shared/dropdown.directive';
 import { Recipe } from '../recipe.model';
 import { NgForOf } from '@angular/common';
+import { RecipeService } from '../recipe.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -11,5 +12,11 @@ import { NgForOf } from '@angular/common';
   styleUrl: './recipe-detail.component.css',
 })
 export class RecipeDetailComponent {
-  @Input() recipe?: Recipe;
+  @Input() recipe!: Recipe;
+
+  constructor(private recipeService: RecipeService) {}
+
+  addToShoppingList() {
+    this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients);
+  }
 }
