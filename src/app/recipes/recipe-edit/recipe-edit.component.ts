@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { RecipeService } from '../recipe.service';
-import { NgIf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-recipe-edit',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule],
+  imports: [NgIf, ReactiveFormsModule, NgForOf],
   templateUrl: './recipe-edit.component.html',
   styleUrl: './recipe-edit.component.css',
 })
@@ -29,22 +34,38 @@ export class RecipeEditComponent {
     });
   }
 
+  get ingredientControls() {
+    return (<FormArray>this.recipeForm.get('ingredients')).controls;
+  }
+
   private initForm() {
     let recipeName = '';
     let recipeImagePath = '';
     let recipeDescription = '';
+    let recipeIngredients = new FormArray<FormGroup>([]);
 
     if (this.editMode) {
       let recipe = this.recipeService.getRecipe(this.id);
       recipeName = recipe.name;
       recipeImagePath = recipe.imagePath;
       recipeDescription = recipe.description;
+      if (recipe.ingredients) {
+        for (let ingredient of recipe.ingredients) {
+          recipeIngredients.push(
+            new FormGroup({
+              name: new FormControl(ingredient.name),
+              amount: new FormControl(ingredient.amount),
+            }),
+          );
+        }
+      }
     }
 
     this.recipeForm = new FormGroup({
       name: new FormControl(recipeName),
       imagePath: new FormControl(recipeImagePath),
       description: new FormControl(recipeDescription),
+      ingredients: recipeIngredients,
     });
   }
 
