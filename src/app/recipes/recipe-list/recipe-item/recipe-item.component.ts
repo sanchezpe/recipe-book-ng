@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgForOf } from '@angular/common';
 import { Recipe } from '../../recipe.model';
 
@@ -11,4 +11,9 @@ import { Recipe } from '../../recipe.model';
 })
 export class RecipeItemComponent {
   @Input() recipe!: Recipe;
+  @Output() recipeSelected = new EventEmitter<Recipe>();
+
+  onSelected() {
+    this.recipeSelected.emit(this.recipe);
+  }
 }
