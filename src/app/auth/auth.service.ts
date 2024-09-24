@@ -82,10 +82,33 @@ export class AuthService {
     let expirationDate = new Date(new Date().getTime() + expiresIn);
     const user = new User(username, token, expirationDate);
     this.user.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
   logout() {
     this.user.next(null);
     this.router.navigate(['/auth']);
+  }
+
+  autoLogin() {
+    let userData = localStorage.getItem('userData');
+    if (!userData) {
+      return;
+    }
+    let toLoadUser: {
+      email: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(userData);
+
+    const loadedUser = new User(
+      toLoadUser.email,
+      toLoadUser._token,
+      new Date(toLoadUser._tokenExpirationDate),
+    );
+
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+    }
   }
 }
