@@ -7,26 +7,10 @@
 <div class="row mt-3">
   <div class="col-xs-12">
     <div class="list-group">
-      <a
-        href="#"
-        class="list-group-item list-group-item-action"
-        *ngFor="let recipe of recipes"
-      >
-        <div class="d-flex justify-content-between">
-          <span>
-            <h4>{{ recipe.name }}</h4>
-            <p>{{ recipe.description }}</p>
-          </span>
-          <span class="w-50">
-            <img
-              [src]="recipe.imagePath"
-              [alt]="recipe.name"
-              class="img-thumbnail"
-            />
-          </span>
-        </div>
-      </a>
+      <app-recipe-item
+        *ngFor="let recipeEl of recipes"
+        [recipe]="recipeEl"
+      ></app-recipe-item>
     </div>
-    <app-recipe-item></app-recipe-item>
   </div>
 </div>
