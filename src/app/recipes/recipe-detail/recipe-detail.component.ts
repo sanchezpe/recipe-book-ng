@@ -3,12 +3,12 @@ import { DropdownDirective } from '../../shared/dropdown.directive';
 import { Recipe } from '../recipe.model';
 import { NgForOf } from '@angular/common';
 import { RecipeService } from '../recipe.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-detail',
   standalone: true,
-  imports: [DropdownDirective, NgForOf],
+  imports: [DropdownDirective, NgForOf, RouterLink],
   templateUrl: './recipe-detail.component.html',
   styleUrl: './recipe-detail.component.css',
 })
@@ -19,6 +19,7 @@ export class RecipeDetailComponent {
   constructor(
     private recipeService: RecipeService,
     private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -30,5 +31,9 @@ export class RecipeDetailComponent {
 
   addToShoppingList() {
     this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients);
+  }
+
+  editRecipe() {
+    this.router.navigate(['edit'], { relativeTo: this.route });
   }
 }
