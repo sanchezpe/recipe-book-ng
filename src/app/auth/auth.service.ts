@@ -35,4 +35,11 @@ export class AuthService {
         }),
       );
   }
+
+  login(email: string, password: string) {
+    return this.http.post('http://localhost:8080/auth/generateToken', {
+      username: email,
+      password: password,
+    });
+  }
 }
