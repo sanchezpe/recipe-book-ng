@@ -1,1 +1,42 @@
-<p>recipe-edit works! - editMode: {{ editMode }}</p>
+<form class="row g-3">
+  <div class="col-12">
+    <button type="submit" class="btn btn-success">
+      Save
+    </button>
+    <button type="button" class="btn btn-danger ms-2">Cancel</button>
+  </div>
+  <div class="col-12">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" name="name" />
+  </div>
+  <div class="col-12">
+    <label for="imagePath" class="form-label">Image URL</label>
+    <input type="text" class="form-control" id="imagePath" name="imagePath" />
+  </div>
+  <div class="col-12">
+    <img src="" class="img-fluid" />
+  </div>
+  <div class="col-12">
+    <label for="description" class="form-label">Description</label>
+    <textarea
+      type="text"
+      class="form-control"
+      id="description"
+      name="description"
+      rows="6"
+    ></textarea>
+  </div>
+  <div class="row g-3">
+    <div class="col-md-8">
+      <label class="visually-hidden" for="ingredientName">Name</label>
+      <input type="text" class="form-control" id="ingredientName"/>
+    </div>
+    <div class="col-md-2">
+      <label class="visually-hidden" for="ingredientAmount">Amount</label>
+      <input type="number" class="form-control" id="ingredientAmount"/>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-danger">X</button>
+    </div>
+  </div>
+</form>
