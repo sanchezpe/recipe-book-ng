@@ -17,4 +17,10 @@ export class DataStorageService {
       .put('http://localhost:8080/recipes/batch', recipes)
       .subscribe((response) => console.log(response));
   }
+
+  fetchRecipes() {
+    this.http
+      .get('http://localhost:8080/recipes')
+      .subscribe((recipes) => console.log(recipes));
+  }
 }
