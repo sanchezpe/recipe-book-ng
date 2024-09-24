@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgForOf } from '@angular/common';
 import { Recipe } from '../../recipe.model';
-import { RecipeService } from '../../recipe.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -15,5 +14,5 @@ export class RecipeItemComponent {
   @Input() recipe!: Recipe;
   @Input() index!: number;
 
-  constructor(private recipeService: RecipeService) {}
+  constructor() {}
 }
