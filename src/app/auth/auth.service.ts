@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 
 interface AuthResponseData {
@@ -20,26 +20,32 @@ export class AuthService {
         username: email,
         password: password,
       })
-      .pipe(
-        catchError((errorResponse) => {
-          console.log(errorResponse);
-          let errorMessage = 'An unknown error occurred';
-          if (!errorResponse.error || !errorResponse.error.message) {
-            return throwError(() => errorMessage);
-          }
-          switch (errorResponse.error.message) {
-            case 'USER_EXISTS':
-              errorMessage = 'This email exists already';
-          }
-          return throwError(() => errorMessage);
-        }),
-      );
+      .pipe(catchError(this.handleError));
   }
 
   login(email: string, password: string) {
-    return this.http.post('http://localhost:8080/auth/generateToken', {
-      username: email,
-      password: password,
-    });
+    return this.http
+      .post<AuthResponseData>('http://localhost:8080/auth/generateToken', {
+        username: email,
+        password: password,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  private handleError(errorResponse: HttpErrorResponse) {
+    console.log(errorResponse);
+    let errorMessage = 'An unknown error occurred';
+    if (!errorResponse.error || !errorResponse.error.message) {
+      return throwError(() => errorMessage);
+    }
+    switch (errorResponse.error.message) {
+      case 'USER_EXISTS':
+        errorMessage = 'This email exists already';
+        break;
+      case 'INVALID_CREDENTIALS':
+        errorMessage = 'Invalid credentials';
+        break;
+    }
+    return throwError(() => errorMessage);
   }
 }
