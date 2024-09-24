@@ -42,8 +42,14 @@ export class ShoppingEditComponent {
   onAddItem(form: NgForm) {
     let ingredientName = form.value.name;
     let ingredientAmount = form.value.amount;
-    this.shoppingListService.addIngredient(
-      new Ingredient(ingredientName, ingredientAmount),
-    );
+    let newIngredient = new Ingredient(ingredientName, ingredientAmount);
+    if (this.editMode) {
+      this.shoppingListService.updateIngredient(
+        this.editedItemIndex,
+        newIngredient,
+      );
+    } else {
+      this.shoppingListService.addIngredient(newIngredient);
+    }
   }
 }

@@ -10,7 +10,7 @@
         <input type="number" class="form-control" id="amount" name="amount" ngModel required pattern="^[1-9]+[0-9]*$"/>
       </div>
       <div class="col-12">
-        <button type="submit" class="btn btn-success" [disabled]="f.invalid">Add</button>
+        <button type="submit" class="btn btn-success" [disabled]="f.invalid">{{ editMode ? 'Edit' : 'Add' }}</button>
         <button type="button" class="btn btn-danger ms-2">Delete</button>
         <button type="button" class="btn btn-primary ms-2">Clear</button>
       </div>
