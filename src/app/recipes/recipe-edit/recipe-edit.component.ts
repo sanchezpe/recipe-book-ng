@@ -74,7 +74,17 @@ export class RecipeEditComponent {
   }
 
   onSubmit() {
-    console.log(this.recipeForm);
+    /*let newRecipe = new Recipe(
+      this.recipeForm.value.name,
+      this.recipeForm.value.description,
+      this.recipeForm.value.ingredients,
+      []
+    );*/
+    if (this.editMode) {
+      this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+    } else {
+      this.recipeService.addRecipe(this.recipeForm.value);
+    }
   }
 
   onAddIngredient() {
