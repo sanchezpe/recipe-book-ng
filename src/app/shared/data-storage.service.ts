@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RecipeService } from '../recipes/recipe.service';
-import { map, tap } from 'rxjs';
+import { exhaustMap, map, take, tap } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -13,6 +14,7 @@ export class DataStorageService {
   constructor(
     private http: HttpClient,
     private recipeService: RecipeService,
+    private authService: AuthService,
   ) {}
 
   storeRecipes() {
@@ -23,7 +25,15 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    return this.http.get(`${this.apiUrl}/recipes`).pipe(
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap((user) => {
+        return this.http.get(`${this.apiUrl}/recipes`, {
+          headers: new HttpHeaders({
+            Authorization: `Bearer ${user?.token}`,
+          }),
+        });
+      }),
       map((data: any) => {
         return data['_embedded']['recipes'];
       }),
