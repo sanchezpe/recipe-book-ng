@@ -16,7 +16,7 @@ import { AlertComponent } from '../shared/alert/alert.component';
 export class AuthComponent {
   isLoginMode = true;
   isLoading = false;
-  error?: string;
+  error: string | null = null;
 
   constructor(
     private authService: AuthService,
@@ -56,5 +56,9 @@ export class AuthComponent {
     });
 
     form.reset();
+  }
+
+  onHandleError() {
+    this.error = null;
   }
 }
