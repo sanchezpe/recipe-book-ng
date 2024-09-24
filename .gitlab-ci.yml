@@ -1,0 +1,41 @@
+# Define the stages of the pipeline
+stages:
+  - build
+  - deploy
+
+# Make a hidden job to hold the common rules for all jobs
+.default-rules:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# Build job
+build:
+  stage: build
+  extends:
+    - .default-rules
+  # Use a Node.js Docker image compatible with the application
+  image: node:20.17.0
+  script:
+    # Install project dependencies
+    - npm ci
+    - npm run build -- --base-href /recipe-book-ng/
+    # Custom 404 page. Same as index.html for single-page application
+    - cp -r dist/recipe-book-ng/browser/index.html dist/recipe-book-ng/browser/404.html
+  artifacts:
+    paths:
+      # The build output directory to be used in the deploy stage
+      - dist/recipe-book-ng/browser/
+
+# Deploy job
+pages:
+  stage: deploy
+  extends:
+    - .default-rules
+  script:
+    # Copy the build output to the 'public' directory used by GitLab Pages
+    - mv dist/recipe-book-ng/browser/* public/
+  artifacts:
+    paths:
+      # The directory where the GitLab Pages static site files are stored
+      - public
