@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { DropdownDirective } from '../shared/dropdown.directive';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [DropdownDirective, RouterLink],
+  imports: [DropdownDirective, RouterLink, RouterLinkActive],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
