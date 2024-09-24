@@ -7,7 +7,9 @@
     >
       Save
     </button>
-    <button type="button" class="btn btn-danger ms-2" (click)="onCancel()">Cancel</button>
+    <button type="button" class="btn btn-danger ms-2" (click)="onCancel()">
+      Cancel
+    </button>
   </div>
   <div class="col-12">
     <label for="name" class="form-label">Name</label>
@@ -17,6 +19,7 @@
       id="name"
       name="name"
       formControlName="name"
+      #name
     />
   </div>
   <div class="col-12">
@@ -27,10 +30,11 @@
       id="imagePath"
       name="imagePath"
       formControlName="imagePath"
+      #imagePath
     />
   </div>
   <div class="col-12">
-    <img src="" class="img-fluid" />
+    <img [src]="imagePath.value" [alt]="name.value" class="img-fluid"/>
   </div>
   <div class="col-12">
     <label for="description" class="form-label">Description</label>
