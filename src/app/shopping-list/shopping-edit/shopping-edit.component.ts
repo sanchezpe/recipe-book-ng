@@ -3,11 +3,12 @@ import { Ingredient } from '../../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-shopping-edit',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgIf],
   templateUrl: './shopping-edit.component.html',
   styleUrl: './shopping-edit.component.css',
 })
@@ -57,5 +58,10 @@ export class ShoppingEditComponent {
   onClear() {
     this.editMode = false;
     this.shoppingListForm.reset();
+  }
+
+  onDelete(index: number) {
+    this.shoppingListService.deleteIngredient(index);
+    this.onClear();
   }
 }
