@@ -23,6 +23,19 @@ export class DropdownDirective {
     }
   }
 
+  @HostListener('document:click', ['$event']) onClickOutside(event: Event) {
+    if (!this.el.nativeElement.contains(event.target)) {
+      const toggle = this.el.nativeElement;
+      const menu = this.el.nativeElement.nextElementSibling;
+
+      if (menu) {
+        this.renderer.removeClass(menu, 'show');
+        this.renderer.removeClass(toggle, 'show');
+        this.isOpen = false;
+      }
+    }
+  }
+
   constructor(
     private el: ElementRef,
     private renderer: Renderer2,
