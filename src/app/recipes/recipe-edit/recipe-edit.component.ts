@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
   FormArray,
   FormControl,
@@ -8,12 +8,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-recipe-edit',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, NgForOf],
+  imports: [ReactiveFormsModule, NgForOf],
   templateUrl: './recipe-edit.component.html',
   styleUrl: './recipe-edit.component.css',
 })
@@ -25,6 +25,7 @@ export class RecipeEditComponent {
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -85,6 +86,7 @@ export class RecipeEditComponent {
     } else {
       this.recipeService.addRecipe(this.recipeForm.value);
     }
+    this.onCancel();
   }
 
   onAddIngredient() {
@@ -97,5 +99,9 @@ export class RecipeEditComponent {
         ]),
       }),
     );
+  }
+
+  onCancel() {
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 }
