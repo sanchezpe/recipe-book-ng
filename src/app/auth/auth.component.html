@@ -4,13 +4,7 @@
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-  <div
-    class="col-md-6 offset-md-3 alert alert-danger"
-    role="alert"
-    *ngIf="error"
-  >
-    {{ error }}
-  </div>
+  <app-alert [message]="error" *ngIf="error"></app-alert>
   <form
     class="row g-3 mt-5"
     #authForm="ngForm"

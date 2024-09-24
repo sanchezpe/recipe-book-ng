@@ -4,11 +4,12 @@ import { AuthService } from './auth.service';
 import { NgIf } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { AlertComponent } from '../shared/alert/alert.component';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [FormsModule, NgIf],
+  imports: [FormsModule, NgIf, AlertComponent],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css',
 })
