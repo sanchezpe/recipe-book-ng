@@ -51,5 +51,11 @@ export class ShoppingEditComponent {
     } else {
       this.shoppingListService.addIngredient(newIngredient);
     }
+    this.onClear();
+  }
+
+  onClear() {
+    this.editMode = false;
+    this.shoppingListForm.reset();
   }
 }
