@@ -31,4 +31,8 @@ export class ShoppingListComponent {
   ngOnDestroy() {
     this.ingredientChangeSubscription.unsubscribe();
   }
+
+  onEditItem(index: number) {
+    this.shoppingListService.startedEditing.next(index);
+  }
 }
