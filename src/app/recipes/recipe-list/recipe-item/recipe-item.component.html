@@ -1,0 +1,15 @@
+<a
+  href="#"
+  class="list-group-item list-group-item-action"
+  (click)="onSelected()"
+>
+  <div class="d-flex justify-content-between">
+    <span>
+      <h4>{{ recipe.name }}</h4>
+      <p>{{ recipe.description }}</p>
+    </span>
+    <span class="w-50">
+      <img [src]="recipe.imagePath" [alt]="recipe.name" class="img-thumbnail" />
+    </span>
+  </div>
+</a>

@@ -1,0 +1,42 @@
+<header>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#" (click)="onSelect('recipes')">
+        Recipe Book
+      </a>
+      <button class="navbar-toggler" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#" (click)="onSelect('recipes')">
+              Recipes
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" (click)="onSelect('shopping-list')">
+              Shopping List
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              appDropdown
+            >
+              Manage
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Save Data</a></li>
+              <li><a class="dropdown-item" href="#">Fetch Data</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
