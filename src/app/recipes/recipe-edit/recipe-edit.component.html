@@ -1,0 +1,84 @@
+<form class="row g-3" [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+  <div class="col-12">
+    <button
+      type="submit"
+      class="btn btn-success"
+      [disabled]="recipeForm.invalid"
+    >
+      Save
+    </button>
+    <button type="button" class="btn btn-danger ms-2" (click)="onCancel()">
+      Cancel
+    </button>
+  </div>
+  <div class="col-12">
+    <label for="name" class="form-label">Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      formControlName="name"
+      #name
+    />
+  </div>
+  <div class="col-12">
+    <label for="imagePath" class="form-label">Image URL</label>
+    <input
+      type="text"
+      class="form-control"
+      id="imagePath"
+      name="imagePath"
+      formControlName="imagePath"
+      #imagePath
+    />
+  </div>
+  <div class="col-12">
+    <img [src]="imagePath.value" [alt]="name.value" class="img-fluid"/>
+  </div>
+  <div class="col-12">
+    <label for="description" class="form-label">Description</label>
+    <textarea
+      type="text"
+      class="form-control"
+      id="description"
+      name="description"
+      rows="6"
+      formControlName="description"
+    ></textarea>
+  </div>
+  <div class="row g-3" formArrayName="ingredients">
+    <ng-container
+      *ngFor="let ingredientControl of ingredientControls; let i = index"
+      [formGroupName]="i"
+    >
+      <div class="col-md-8">
+        <label class="visually-hidden" for="ingredientName">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="ingredientName"
+          formControlName="name"
+        />
+      </div>
+      <div class="col-md-2">
+        <label class="visually-hidden" for="ingredientAmount">Amount</label>
+        <input
+          type="number"
+          class="form-control"
+          id="ingredientAmount"
+          formControlName="amount"
+        />
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-danger" type="button" (click)="onDeleteIngredient(i)">X</button>
+      </div>
+    </ng-container>
+    <hr/>
+    <div class="col-12">
+      <button class="btn btn-success" type="button" (click)="onAddIngredient()">
+        Add Ingredient
+      </button>
+    </div>
+  </div>
+</form>

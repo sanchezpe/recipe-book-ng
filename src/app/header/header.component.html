@@ -1,38 +1,39 @@
 <header>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#" (click)="onSelect('recipes')">
-        Recipe Book
-      </a>
+      <a class="navbar-brand" routerLink=""> Recipe Book </a>
       <button class="navbar-toggler" type="button">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#" (click)="onSelect('recipes')">
+            <a class="nav-link" routerLink="/recipes" routerLinkActive="active">
               Recipes
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" (click)="onSelect('shopping-list')">
+            <a
+              class="nav-link"
+              routerLink="/shopping-list"
+              routerLinkActive="active"
+            >
               Shopping List
             </a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              appDropdown
-            >
+            <a class="nav-link dropdown-toggle" role="button" appDropdown>
               Manage
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Save Data</a></li>
-              <li><a class="dropdown-item" href="#">Fetch Data</a></li>
+              <li>
+                <button class="dropdown-item btn btn-link">Save Data</button>
+              </li>
+              <li>
+                <button class="dropdown-item btn btn-link">Fetch Data</button>
+              </li>
             </ul>
           </li>
         </ul>
