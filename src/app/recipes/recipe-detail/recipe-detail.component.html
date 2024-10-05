@@ -19,9 +19,15 @@
         Manage Recipe
       </button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#" (click)="addToShoppingList()">To Shopping List</a></li>
-        <li><a class="dropdown-item" href="#">Edit Recipe</a></li>
-        <li><a class="dropdown-item" href="#">Delete Recipe</a></li>
+        <li>
+          <button class="dropdown-item btn btn-link" (click)="addToShoppingList()">To Shopping List</button>
+        </li>
+        <li>
+          <button class="dropdown-item btn btn-link" (click)="editRecipe()">Edit Recipe</button>
+        </li>
+        <li>
+          <button class="dropdown-item btn btn-link">Delete Recipe</button>
+        </li>
       </ul>
     </div>
   </div>
