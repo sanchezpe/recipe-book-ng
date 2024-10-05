@@ -55,6 +55,8 @@ jobs:
 
       - name: Build the application
         run: npm run build -- --base-href /recipe-book-ng/
+        env:
+          API_URL: ${{ vars.API_URL }}
 
       - name: Configure 404 Page
         run: cp -r dist/recipe-book-ng/browser/index.html dist/recipe-book-ng/browser/404.html
