@@ -1,25 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { NgIf } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { AlertComponent } from '../shared/alert/alert.component';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [FormsModule, NgIf],
+  imports: [FormsModule, NgIf, AlertComponent],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css',
 })
 export class AuthComponent {
   isLoginMode = true;
   isLoading = false;
-  error?: string;
+  error: string | null = null;
+  private closeSubscription?: Subscription;
 
   constructor(
     private authService: AuthService,
     private router: Router,
+    private viewContainerRef: ViewContainerRef,
   ) {}
 
   onSwitchMode() {
@@ -49,11 +52,25 @@ export class AuthComponent {
         this.router.navigate(['/recipes']);
       },
       error: (errorMessage) => {
-        this.error = errorMessage;
+        this.showErrorAlert(errorMessage);
         this.isLoading = false;
       },
     });
 
     form.reset();
+  }
+
+  onDestroy() {
+    this.closeSubscription?.unsubscribe();
+  }
+
+  private showErrorAlert(errorMessage: string) {
+    const alertComponentRef =
+      this.viewContainerRef.createComponent(AlertComponent);
+    alertComponentRef.instance.message = errorMessage;
+    this.closeSubscription = alertComponentRef.instance.close.subscribe(() => {
+      this.closeSubscription?.unsubscribe();
+      alertComponentRef.destroy();
+    });
   }
 }
